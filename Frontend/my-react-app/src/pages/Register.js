@@ -6,8 +6,18 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
 
-    const handleRegister = () => {
-        navigate('/dashboard');
+    const handleRegister = async() => {
+        try {
+            const response = await axios.post('http://localhost:5000/api/register', {
+                email,
+                password
+            });
+            localStorage.setItem('token', res.data.token);
+            navigate('/dashboard');
+        } catch (error) {
+            alert('failure')
+        }
+        
     }
     return(
         <div>
