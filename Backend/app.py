@@ -3,17 +3,18 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from models import db, User
 from config import Config
 
+
+
 app = Flask(__name__)
 app.config.from_object(Config)
 
 db.init_app(app)
 jwt = JWTManager(app)
 
-@app.before_first_request
-def create_tables():
+with app.app_context():
     db.create_all()
 
-
+@app.route("/register", methods=["POST"])
 def register():
     data = request.json
     if User.query.filter_by(email=data["email"]).first():
@@ -23,3 +24,6 @@ def register():
     db.session.add(new_user)
     db.session.commit()
     return jsonify({"message": "User registered successfully"}), 201
+
+if __name__ == "__main__":
+    app.run(debug=False)
