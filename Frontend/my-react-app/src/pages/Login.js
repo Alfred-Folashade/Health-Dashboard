@@ -7,8 +7,18 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
 
-    const handleLogin = () => {
-        navigate('/dashboard');
+    const handleLogin = async() => {
+        try {
+            const response = await axios.post('http://127.0.0.1:5000/login', {
+                email,
+                password
+            });
+            localStorage.setItem("token", response.data.token)   //stores authentication token in browsers local storage even after page reloads
+            navigate('/dashboard');
+        } catch (error) {
+            alert("Login failed!", error);
+        }
+        
     };
     return (
         <div>

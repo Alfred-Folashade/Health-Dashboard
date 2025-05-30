@@ -19,7 +19,6 @@ with app.app_context():
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
-    print(data)
     if User.query.filter_by(email=data["email"]).first():
         return jsonify({"error": "User already exists"}), 400
     new_user = User(email=data["email"])
@@ -27,6 +26,16 @@ def register():
     db.session.add(new_user)
     db.session.commit()
     return jsonify({"message": "User registered successfully"}), 201
+
+@app.route("/login", methods=["POST"])
+def login():
+   
+    data = request.json #email and password
+    user = User.query.filter_by(email=data["email"]).first()  #finds first matching user with that email
+    if user and user.check_password(data["password"]):   #returns false if user is none or password is incorrect 
+        token = create_access_token(identity=user.id)
+        return jsonify({"token": token}), 200
+    return jsonify({"error": "Invalid credentials"}), 401
 
 if __name__ == "__main__":
     app.run(debug=False)
