@@ -1,7 +1,8 @@
-import React from 'react';
+import Reactt, { useState } from 'react';
 import styles from './GlucoseLogging.module.css';
 
 const GlucoseLogger = () => {
+  const[readingData, setReadingData] = useState({reading: '', test_type: '', date: '', time: '', notes: ''});
   return (
     <div className={styles.app}>
       <header className={styles.header}>
@@ -23,7 +24,7 @@ const GlucoseLogger = () => {
           <h2 className={styles['section-title']}>Log New Reading</h2>
           
           <div className={styles['form-group']}>
-            <label className={styles.label}>Glucose Reading</label>
+            <label className={styles.label} value={readingData.reading}>Glucose Reading</label>
             <div className={styles['input-with-unit']}>
               <input 
                 type="number" 
@@ -36,21 +37,21 @@ const GlucoseLogger = () => {
 
           <div className={styles['form-group']}>
             <label className={styles.label}>Test Type</label>
-            <select className={styles.select}>
+            <select className={styles.select} value={readingData.test_type}>
               <option value="">Select test type</option>
-              <option value="fasting">Fasting (8+ hours)</option>
-              <option value="before-meal">Before Meal</option>
-              <option value="after-meal">After Meal (1-2 hours)</option>
-              <option value="bedtime">Bedtime</option>
-              <option value="random">Random</option>
+              <option name="fasting" value="fasting">Fasting (8+ hours)</option>
+              <option name="before-meal" value="before-meal">Before Meal</option>
+              <option name="after-meal" value="after-meal">After Meal (1-2 hours)</option>
+              <option name="bedtime" value="bedtime">Bedtime</option>
+              <option name="random" value="random">Random</option>
             </select>
           </div>
 
           <div className={styles['form-group']}>
             <label className={styles.label}>Date & Time</label>
             <div className={styles['datetime-inputs']}>
-              <input type="date" className={styles.input} />
-              <input type="time" className={styles.input} />
+              <input type="date" value={readingData.date} className={styles.input} />
+              <input type="time" value={readingData.time} className={styles.input} />
             </div>
           </div>
           
@@ -59,6 +60,7 @@ const GlucoseLogger = () => {
             <textarea 
               className={styles.textarea}
               placeholder="Meal details, medication, exercise, etc..."
+              value={readingData.notes}
               rows="3"
             ></textarea>
           </div>
