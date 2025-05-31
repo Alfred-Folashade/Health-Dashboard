@@ -29,7 +29,6 @@ def register():
 
 @app.route("/login", methods=["POST"])
 def login():
-   
     data = request.json #email and password
     user = User.query.filter_by(email=data["email"]).first()  #finds first matching user with that email
     if user and user.check_password(data["password"]):   #returns false if user is none or password is incorrect 
