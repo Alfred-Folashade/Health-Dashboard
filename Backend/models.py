@@ -18,6 +18,7 @@ class GlucoseReading(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     glucose_reading = db.Column(db.Numeric(4, 1))
-    reading_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now())
+    reading_time = db.Column(db.DateTime, nullable=False, default=datetime.now())
     test_type = db.Column(db.String(128))
     notes = db.Column(db.Text)
+    user = db.relationship('User',backref=db.backref('glucose_readings', lazy=True))
