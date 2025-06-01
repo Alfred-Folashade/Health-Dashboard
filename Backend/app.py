@@ -36,6 +36,10 @@ def login():
         return jsonify({"token": token}), 200
     return jsonify({"error": "Invalid credentials"}), 401
 
+@app.route("/readings-form", methods=["POST"])
+def create_glucose_reading():
+    data = request.json
+    
 if __name__ == "__main__":
     app.run(debug=False)
 

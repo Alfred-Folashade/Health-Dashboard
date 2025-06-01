@@ -1,8 +1,30 @@
 import Reactt, { useState } from 'react';
 import styles from './GlucoseLogging.module.css';
+import axios from 'axios';
 
 const GlucoseLogger = () => {
-  const[readingData, setReadingData] = useState({reading: '', test_type: '', date: '', time: '', notes: ''});
+  const[readingData, setReadingData] = useState({reading: '',
+   test_type: '', 
+   date: '', 
+   time: '', 
+   notes: ''});
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setReadingData(prev => ({
+      ...prev, 
+      [name]: value
+    }));
+  }
+  const handleSubmit = async() => {
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/readings-form',{
+        readingData
+      });
+    } catch (error) {
+      
+    }
+  }
   return (
     <div className={styles.app}>
       <header className={styles.header}>
@@ -24,12 +46,14 @@ const GlucoseLogger = () => {
           <h2 className={styles['section-title']}>Log New Reading</h2>
           
           <div className={styles['form-group']}>
-            <label className={styles.label} value={readingData.reading}>Glucose Reading</label>
-            <div className={styles['input-with-unit']}>
+            <label className={styles.label} >Glucose Reading</label>
+            <div  className={styles['input-with-unit']}>
               <input 
                 type="number" 
                 className={styles['glucose-input']}
                 placeholder="Enter reading"
+                value={readingData.reading}
+                onChange={handleChange}
               />
               <span className={styles.unit}>mmol/L</span>
             </div>
@@ -37,7 +61,7 @@ const GlucoseLogger = () => {
 
           <div className={styles['form-group']}>
             <label className={styles.label}>Test Type</label>
-            <select className={styles.select} value={readingData.test_type}>
+            <select className={styles.select} value={readingData.test_type} onChange={handleChange}>
               <option value="">Select test type</option>
               <option name="fasting" value="fasting">Fasting (8+ hours)</option>
               <option name="before-meal" value="before-meal">Before Meal</option>
@@ -50,8 +74,8 @@ const GlucoseLogger = () => {
           <div className={styles['form-group']}>
             <label className={styles.label}>Date & Time</label>
             <div className={styles['datetime-inputs']}>
-              <input type="date" value={readingData.date} className={styles.input} />
-              <input type="time" value={readingData.time} className={styles.input} />
+              <input type="date" value={readingData.date} onChange={handleChange} className={styles.input} />
+              <input type="time" value={readingData.time} onChange={handleChange} className={styles.input} />
             </div>
           </div>
           
@@ -61,12 +85,13 @@ const GlucoseLogger = () => {
               className={styles.textarea}
               placeholder="Meal details, medication, exercise, etc..."
               value={readingData.notes}
+              onChange={handleChange}
               rows="3"
             ></textarea>
           </div>
           
           <div className={styles['form-buttons']}>
-            <button className={`${styles.btn} ${styles['btn-primary']}`}>Save Entry</button>
+            <button onClick={handleSubmit} className={`${styles.btn} ${styles['btn-primary']}` }>Save Entry</button>
             <button className={`${styles.btn} ${styles['btn-secondary']}`}>Clear Form</button>
           </div>
         </section>
