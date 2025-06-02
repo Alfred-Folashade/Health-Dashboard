@@ -1,4 +1,4 @@
-import Reactt, { useState } from 'react';
+import React, { useState } from 'react';
 import styles from './GlucoseLogging.module.css';
 import axios from 'axios';
 
@@ -9,6 +9,9 @@ const GlucoseLogger = () => {
    time: '', 
    notes: ''});
 
+  
+  
+  
   const handleChange = (e) => {
     const {name, value} = e.target;
     setReadingData(prev => ({
@@ -52,6 +55,7 @@ const GlucoseLogger = () => {
                 type="number" 
                 className={styles['glucose-input']}
                 placeholder="Enter reading"
+                name="reading"
                 value={readingData.reading}
                 onChange={handleChange}
               />
@@ -61,7 +65,7 @@ const GlucoseLogger = () => {
 
           <div className={styles['form-group']}>
             <label className={styles.label}>Test Type</label>
-            <select className={styles.select} value={readingData.test_type} onChange={handleChange}>
+            <select className={styles.select} name="test_type" value={readingData.test_type} onChange={handleChange}>
               <option value="">Select test type</option>
               <option name="fasting" value="fasting">Fasting (8+ hours)</option>
               <option name="before-meal" value="before-meal">Before Meal</option>
@@ -74,8 +78,8 @@ const GlucoseLogger = () => {
           <div className={styles['form-group']}>
             <label className={styles.label}>Date & Time</label>
             <div className={styles['datetime-inputs']}>
-              <input type="date" value={readingData.date} onChange={handleChange} className={styles.input} />
-              <input type="time" value={readingData.time} onChange={handleChange} className={styles.input} />
+              <input type="date" name="date" value={readingData.date} onChange={handleChange} className={styles.input} />
+              <input type="time" name="time" value={readingData.time} onChange={handleChange} className={styles.input} />
             </div>
           </div>
           
@@ -84,6 +88,7 @@ const GlucoseLogger = () => {
             <textarea 
               className={styles.textarea}
               placeholder="Meal details, medication, exercise, etc..."
+              name="notes"
               value={readingData.notes}
               onChange={handleChange}
               rows="3"
