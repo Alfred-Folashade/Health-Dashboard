@@ -10,7 +10,12 @@ const GlucoseLogger = () => {
    notes: ''});
 
   
-  
+  if(readingData.reading<0){
+    readingData.reading=0;
+  }
+  if(readingData.reading>100){
+    readingData.reading=100;
+  }
   
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -21,11 +26,21 @@ const GlucoseLogger = () => {
   }
   const handleSubmit = async() => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/readings-form',{
-        readingData
-      });
-    } catch (error) {
       
+      console.log(readingData)
+      const token = localStorage.getItem("token"); 
+      console.log("Token:", token);
+      const response = await axios.post('http://127.0.0.1:5000/readings-form', {readingData},
+      {
+        headers: {
+          Authorization:`Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+    } catch (error) {
+      alert( error);
+      console.log(error.response.data)
     }
   }
   return (
