@@ -73,5 +73,5 @@ def create_glucose_reading():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    decode_token("token	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc1MDE5MjAzNSwianRpIjoiYWU4NjU2NDEtZjU2OC00YjBiLWE0ZmMtYjdlYmI4ZThhZmMyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MiwibmJmIjoxNzUwMTkyMDM1LCJjc3JmIjoiODRiNjU0MDAtYjNmYS00ZWUwLWIzODgtMzYwODhhMmIzNTMxIiwiZXhwIjoxNzUwMTkyOTM1fQ.EsP-1u2dxMy5KCqgnVEfrBHX4pc4AtevfSun2Raww_Y")
+    
 
