@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Glucose from './pages/GlucoseLogging'
 import PrivateRoute from './components/PrivateRoute';
+import Dashboard from './pages/Dashboard';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Glucose/>
           </PrivateRoute>
         }/>
+        <Route path="/dashboard" element={<Dashboard/>}></Route>
       </Routes>
     </Router>
   );

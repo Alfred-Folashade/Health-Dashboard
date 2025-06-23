@@ -1,0 +1,192 @@
+/* dashboards.module.css */
+
+.dashboardApp {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f9fafb;
+    font-family: 'Segoe UI', sans-serif;
+    color: #111827;
+    padding: 1rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .headerInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+  
+  .status {
+    display: flex;
+    align-items: center;
+    margin-top: 0.25rem;
+  }
+  
+  .statusDot {
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: #10b981;
+    border-radius: 9999px;
+    margin-right: 0.5rem;
+  }
+  
+  .statusText {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .dateInfo {
+    text-align: right;
+  }
+  
+  .today {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .date {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  
+  .summary {
+    background: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.25rem;
+  }
+  
+  .stat {
+    text-align: center;
+  }
+  
+  .statValue {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  .statLabel {
+    font-size: 1rem;
+    color: #6b7280;
+  }
+  
+  .statUnit {
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+  
+  .visuals {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .graphContainer {
+    background: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  .commitGraph {
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 4px;
+  }
+  
+  .square {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+  
+  .level0 {
+    background-color: #e5e7eb;
+  }
+  
+  .level1 {
+    background-color: #a5b4fc;
+  }
+  
+  .level2 {
+    background-color: #6366f1;
+  }
+  
+  .level3 {
+    background-color: #4338ca;
+  }
+  
+  .actionButtons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  
+  .actionBtn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .actionBtn:hover {
+    background-color: #2563eb;
+  }
+  
+  .btnIcon {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .footer {
+    text-align: center;
+    padding-top: 1rem;
+    margin-top: auto;
+    font-size: 0.875rem;
+    color: #9ca3af;
+    border-top: 1px solid #e5e7eb;
+  }
+  
