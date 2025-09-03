@@ -18,6 +18,7 @@ import {
   Legend
 } from "recharts";
 import { Activity, Plus, Bell } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
 
 const glucoseData = [
   { day: "Mon", value: 95 },
@@ -40,11 +41,13 @@ const medicationAdherence = [
   { name: "Missed", value: 15 },
 ];
 
+
+
 const COLORS = ["#34d399", "#f87171"];
 
 const Dashboard = () => {
   const today = new Date().toLocaleDateString();
-
+  const navigate = useNavigate();
   return (
     <div className={styles.dashboardApp}>
       <header className={styles.header}>
@@ -88,8 +91,8 @@ const Dashboard = () => {
                 <Line type="monotone" dataKey="value" stroke="#6366f1" strokeWidth={2} />
                 <CartesianGrid stroke="#e5e7eb" />
                 <XAxis dataKey="day" />
-                <YAxis />
-                <Tooltip />
+                <YAxis /> 
+                <Tooltip />  {/* The small popup that appears when you hover over the line*/}
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -132,8 +135,10 @@ const Dashboard = () => {
         </section>
 
         <div className={styles.actionButtons}>
-          <button className={styles.actionBtn}>
+          <button className={styles.actionBtn} onClick={() => navigate("/glucoseLogging")}>
+
             <Activity className={styles.btnIcon} /> Log Glucose
+            
           </button>
           <button className={styles.actionBtn}>
             <Plus className={styles.btnIcon} /> Add Meal
