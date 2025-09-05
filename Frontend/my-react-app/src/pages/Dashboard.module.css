@@ -1,6 +1,7 @@
 /* dashboards.module.css */
 
 .dashboardApp {
+    flex: 1;        
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -8,6 +9,9 @@
     font-family: 'Segoe UI', sans-serif;
     color: #111827;
     padding: 1rem;
+    overflow: auto;
+    min-width: 0;  
+    order: 1;           /* ensures dashboard appears on the left */
   }
   
   .header {
@@ -188,5 +192,21 @@
     font-size: 0.875rem;
     color: #9ca3af;
     border-top: 1px solid #e5e7eb;
+  }
+
+  .sidebar {
+  flex: 0 0 250px;      /* fixed width */
+  background: #202123;
+  color: #fff;
+  padding: 1rem;
+  overflow-y: auto;
+  order: 2;             /* moves sidebar to the right */
+}
+
+  
+  .appContainer {
+    display: flex;  
+    flex-direction: row;          /* makes children sit side by side */
+    height: 100vh;          /* full screen height */
   }
   

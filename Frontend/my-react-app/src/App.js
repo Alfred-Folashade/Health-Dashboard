@@ -19,11 +19,17 @@ function App() {
         <Route
           path="/glucoseLogging" 
           element={
-          <PrivateRoute>
+          
             <Glucose/>
-          </PrivateRoute>
+          
         }/>
-        <Route path="/dashboard" element={<Dashboard/>}></Route>
+        <Route 
+          path="/dashboard" element={
+            
+              <Dashboard/>
+            
+          }>
+        </Route>
       </Routes>
     </Router>
   );

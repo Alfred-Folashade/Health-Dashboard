@@ -49,107 +49,117 @@ const Dashboard = () => {
   const today = new Date().toLocaleDateString();
   const navigate = useNavigate();
   return (
-    <div className={styles.dashboardApp}>
-      <header className={styles.header}>
-        <div className={styles.headerInfo}>
-          <div className={styles.title}>DiaTrack Dashboard</div>
-          <div className={styles.status}>
-            <span className={styles.statusDot}></span>
-            <span className={styles.statusText}>Monitoring active</span>
-          </div>
-        </div>
-        <div className={styles.dateInfo}>
-          <div className={styles.today}>Today</div>
-          <div className={styles.date}>{today}</div>
-        </div>
-      </header>
-
-      <main className={styles.main}>
-        <section className={styles.summary}>
-          <div className={styles.stats}>
-            <div className={styles.stat}>
-              <div className={styles.statValue}>7.0</div>
-              <div className={styles.statLabel}>Avg. Glucose</div>
-              <div className={styles.statUnit}>mmol/L</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statValue}>6</div>
-              <div className={styles.statLabel}>Meals Logged</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statValue}>98%</div>
-              <div className={styles.statLabel}>Med Adherence</div>
+    <div className={styles.appContainer}>
+      <div className={styles.sidebar}>
+        <h2>AI assistant</h2>
+        <ul>
+          <li>Chat 1</li>
+          <li>Chat 2</li>
+          <li>Chat 3</li>
+        </ul>
+      </div>
+      <div className={styles.dashboardApp}>
+        <header className={styles.header}>
+          <div className={styles.headerInfo}>
+            <div className={styles.title}>DiaTrack Dashboard</div>
+            <div className={styles.status}>
+              <span className={styles.statusDot}></span>
+              <span className={styles.statusText}>Monitoring active</span>
             </div>
           </div>
-        </section>
-
-        <section className={styles.visuals}>
-          <div className={styles.graphContainer}>
-            <div className={styles.sectionTitle}>Weekly Glucose Levels</div>
-            <ResponsiveContainer width="100%" height={200}>
-              <LineChart data={glucoseData}>
-                <Line type="monotone" dataKey="value" stroke="#6366f1" strokeWidth={2} />
-                <CartesianGrid stroke="#e5e7eb" />
-                <XAxis dataKey="day" />
-                <YAxis /> 
-                <Tooltip />  {/* The small popup that appears when you hover over the line*/}
-              </LineChart>
-            </ResponsiveContainer>
+          <div className={styles.dateInfo}>
+            <div className={styles.today}>Today</div>
+            <div className={styles.date}>{today}</div>
           </div>
+        </header>
 
-          <div className={styles.graphContainer}>
-            <div className={styles.sectionTitle}>Meals by Time of Day</div>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={mealData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="meals" fill="#3b82f6" />
-              </BarChart>
-            </ResponsiveContainer>
+        <main className={styles.main}>
+          <section className={styles.summary}>
+            <div className={styles.stats}>
+              <div className={styles.stat}>
+                <div className={styles.statValue}>7.0</div>
+                <div className={styles.statLabel}>Avg. Glucose</div>
+                <div className={styles.statUnit}>mmol/L</div>
+              </div>
+              <div className={styles.stat}>
+                <div className={styles.statValue}>6</div>
+                <div className={styles.statLabel}>Meals Logged</div>
+              </div>
+              <div className={styles.stat}>
+                <div className={styles.statValue}>98%</div>
+                <div className={styles.statLabel}>Med Adherence</div>
+              </div>
+            </div>
+          </section>
+
+          <section className={styles.visuals}>
+            <div className={styles.graphContainer}>
+              <div className={styles.sectionTitle}>Weekly Glucose Levels</div>
+              <ResponsiveContainer width="100%" height={200}>
+                <LineChart data={glucoseData}>
+                  <Line type="monotone" dataKey="value" stroke="#6366f1" strokeWidth={2} />
+                  <CartesianGrid stroke="#e5e7eb" />
+                  <XAxis dataKey="day" />
+                  <YAxis /> 
+                  <Tooltip />  {/* The small popup that appears when you hover over the line*/}
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className={styles.graphContainer}>
+              <div className={styles.sectionTitle}>Meals by Time of Day</div>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={mealData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="time" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="meals" fill="#3b82f6" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className={styles.graphContainer}>
+              <div className={styles.sectionTitle}>Medication Adherence</div>
+              <ResponsiveContainer width="100%" height={200}>
+                <PieChart>
+                  <Pie
+                    data={medicationAdherence}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={70}
+                    label
+                  >
+                    {medicationAdherence.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Legend />
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </section>
+
+          <div className={styles.actionButtons}>
+            <button className={styles.actionBtn} onClick={() => navigate("/glucoseLogging")}>
+
+              <Activity className={styles.btnIcon} /> Log Glucose
+              
+            </button>
+            <button className={styles.actionBtn}>
+              <Plus className={styles.btnIcon} /> Add Meal
+            </button>
+            <button className={styles.actionBtn}>
+              <Bell className={styles.btnIcon} /> Set Reminder
+            </button>
           </div>
+        </main>
 
-          <div className={styles.graphContainer}>
-            <div className={styles.sectionTitle}>Medication Adherence</div>
-            <ResponsiveContainer width="100%" height={200}>
-              <PieChart>
-                <Pie
-                  data={medicationAdherence}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={70}
-                  label
-                >
-                  {medicationAdherence.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Legend />
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </section>
-
-        <div className={styles.actionButtons}>
-          <button className={styles.actionBtn} onClick={() => navigate("/glucoseLogging")}>
-
-            <Activity className={styles.btnIcon} /> Log Glucose
-            
-          </button>
-          <button className={styles.actionBtn}>
-            <Plus className={styles.btnIcon} /> Add Meal
-          </button>
-          <button className={styles.actionBtn}>
-            <Bell className={styles.btnIcon} /> Set Reminder
-          </button>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>© 2025 DiaTrack. All rights reserved.</footer>
+        <footer className={styles.footer}>© 2025 DiaTrack. All rights reserved.</footer>
+      </div>
     </div>
   );
 };
