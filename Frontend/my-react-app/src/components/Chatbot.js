@@ -30,7 +30,11 @@ function Chatbot() {
         chatIdOrNew = id;
       }
 
-      const stream = await api.sendChatMessage(chatIdOrNew, trimmedMessage);
+      const stream = await fetch(BASE_URL + `/chats/${chatId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ trimmedMessage })
+      });
       for await (const textChunk of parseSSEStream(stream)) {
         setMessages(draft => {
           draft[draft.length - 1].content += textChunk;
