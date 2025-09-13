@@ -33,7 +33,7 @@ function Chatbot() {
       const stream = await fetch(BASE_URL + `/chats/${chatId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ trimmedMessage })
+        body: JSON.stringify({ messages: messages })
       });
       for await (const textChunk of parseSSEStream(stream)) {
         setMessages(draft => {
