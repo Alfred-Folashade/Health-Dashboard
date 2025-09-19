@@ -1,9 +1,13 @@
 from flask import Flask, Response, request, stream_with_context
 from openai import OpenAI
+from flask_cors import CORS
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
-client = OpenAi(api_key=os.getenv("OPENAI_API_KEY"))
+CORS(app, supports_credentials=True)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def stream_response(messages):
     stream=client.chat.completions.create(
@@ -11,11 +15,13 @@ def stream_response(messages):
         messages=messages,
         stream=True 
     )
+    print(stream);
 
     for events in stream:
-        if events.choices[0].delta.get("content"):
+       
+        if events.choices[0].delta.content:
             # SSE format: "data: <text>\n\n"
-             yield f"data: {event.choices[0].delta.content}\n\n"
+             yield f"data: {events.choices[0].delta.content}\n\n"
     yield "data: [DONE]\n\n"
 
 @app.route("/chats", methods=["POST"])
@@ -23,7 +29,7 @@ def chat():
     data = request.get_json()
     messages = data.get('messages', [])
     return Response(
-        stream_with_context(stream_response(responses)),
+        stream_with_context(stream_response(messages)),
         mimetype="text/event-stream"
     )
 

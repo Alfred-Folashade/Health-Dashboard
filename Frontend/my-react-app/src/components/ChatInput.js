@@ -1,5 +1,5 @@
-import useAutosize from '@/hooks/useAutosize';
-import sendIcon from '@/assets/images/send.svg';
+import useAutosize from '../hooks/useAutoSize';
+import sendIcon from '../assets/images/send.svg';
 
 function ChatInput({ newMessage, isLoading, setNewMessage, submitNewMessage }) {
   const textareaRef = useAutosize(newMessage);

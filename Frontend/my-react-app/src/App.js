@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Glucose from './pages/GlucoseLogging'
 import PrivateRoute from './components/PrivateRoute';
 import Dashboard from './pages/Dashboard';
+import Chatbot from './components/Chatbot'
 
 
 
@@ -30,6 +31,7 @@ function App() {
             
           }>
         </Route>
+        <Route path="/chat" element={<Chatbot/>}/>
       </Routes>
     </Router>
   );

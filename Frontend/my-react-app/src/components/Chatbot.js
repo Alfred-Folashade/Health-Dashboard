@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useImmer } from 'use-immer';
-import api from '@/api';
-import { parseSSEStream } from '@/utils';
-import ChatMessages from '@/components/ChatMessages';
-import ChatInput from '@/components/ChatInput';
+import { useImmer } from "use-immer";
+
+import ChatMessages from './ChatMessages';
+import ChatInput from './ChatInput';
+import { parseSSEStream } from '../utils';
+import { BASE_URL } from '../config/api';
 
 function Chatbot() {
-  const [chatId, setChatId] = useState(null);
   const [messages, setMessages] = useImmer([]);
   const [newMessage, setNewMessage] = useState('');
 
@@ -22,20 +22,15 @@ function Chatbot() {
     ]);
     setNewMessage('');
 
-    let chatIdOrNew = chatId;
     try {
-      if (!chatId) {
-        const { id } = await api.createChat();
-        setChatId(id);
-        chatIdOrNew = id;
-      }
-
-      const stream = await fetch(BASE_URL + `/chats/${chatId}`, {
+      console.log(messages);
+      const stream = await fetch('http://127.0.0.1:5000/chats', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: messages })
       });
-      for await (const textChunk of parseSSEStream(stream)) {
+      console.log(stream);
+      for await (const textChunk of parseSSEStream(stream.body)) {
         setMessages(draft => {
           draft[draft.length - 1].content += textChunk;
         });
